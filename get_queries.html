@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<body>
+	<meta charset="utf-8">
+	<script type="text/javascript">
+	
+		function get_queries(URL_string){
+			var url_temp = URL_string.split('?')[1];
+			var split_url = url_temp.split('&');
+			var num_queries = split_url.length;
+			var datalayer_temp = {};
+			for(i=0; i< num_queries; i++){
+				var query_item = split_url[i].split("=");
+				if(query_item[1]!="" && query_item[1]!="purl"){
+					datalayer_temp[query_item[0]] = query_item[1];
+				}
+			}
+			return datalayer_temp
+		}
+		
+		function image_tag(datalayer, name_temp){
+			var datalayer_keys = Object.keys(datalayer);
+			var datalayer_length = datalayer_keys.length;
+			for(i=0; i<datalayer_length; i++){
+				name_temp += (datalayer_keys[i] + '=' + datalayer[datalayer_keys[i]]);
+				if((i+1) != datalayer_length){
+					name_temp += '&';
+				}
+			}
+			var img_create = document.createElement("IMG");
+			img_create.setAttribute("src", name_temp);
+			document.body.appendChild(img_create);		
+		}
+
+		function save_queries(datalayer){
+			var datalayer_keys = Object.keys(datalayer);
+			var datalayer_length = datalayer_keys.length;
+			for(i=0; i<datalayer_length; i++){
+				localStorage[datalayer_keys[i]] = datalayer[datalayer_keys[i]];
+			}			
+		}
+
+		function get_storage(){
+			var storage_key = Object.keys(localStorage);
+			var datalayer_length = storage_key.length;
+			var data_val = {};
+			for(i=0; i<datalayer_length; i++){
+				data_val[storage_key[i]] = localStorage[storage_key[i]];
+			}			
+			return data_val;
+		}
+		
+		var sample_url = "http://www.datalicious.com/?pia.ca=72208039&pie.de=cbartens@datalicious.com&pin.gn=Christian&pin.fn=Bartens&pip.de=&oi.na=&ps.na=&pl.ci=&pl.re=&pl.co=&utm_source=purl&utm_medium=purl&utm_campaign=purl";
+		var datalayer = get_queries(sample_url);
+		var img_name = "https://example.com/datacollector?";
+		image_tag(get_queries(sample_url), img_name)
+		
+		save_queries(datalayer);
+		var datalayer2 = get_storage();
+		var datalayer2_keys = Object.keys(datalayer2);
+		for(i=0; i<datalayer2_keys.length; i++){
+			document.write(datalayer2_keys[i] + "=" + datalayer2[datalayer2_keys[i]] + '<br/>');
+		}
+	</script>
+</body>
+</html>
