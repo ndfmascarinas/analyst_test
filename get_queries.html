@@ -5,6 +5,16 @@
 	<script type="text/javascript">
 	
 		function get_queries(URL_string){
+		/*
+			Task 1
+			
+			This function get_queries() accepts the variable "URL_string"
+			and splits them first by the "?" giving the (1) main webpage 
+			and (2) query string. The query string will be split by
+			the character "=". The assumption here is that only the non-empty
+			query and those not equal to "purl" will be returned as object
+			key values using the object "datalayer_temp".
+		*/
 			var url_temp = URL_string.split('?')[1];
 			var split_url = url_temp.split('&');
 			var num_queries = split_url.length;
@@ -19,6 +29,20 @@
 		}
 		
 		function image_tag(datalayer, name_temp){
+		/*
+			Task 2
+			
+			This function gets the object variable "datalayer", and the 
+			string "name_temp" containing the URL to which the keys and
+			key values from "datalayer" will be added to. The assumption
+			here is that "name_temp" is similar to the example given, 
+			including the character "?" before the supposed query string.
+			The key and key values will be joined by the character "=", with
+			each pair joined by the character "&".
+			This function appends an image element to the 'body' which uses
+			the source containing the 'name_temp' and the query string added
+			to it.
+		*/
 			var datalayer_keys = Object.keys(datalayer);
 			var datalayer_length = datalayer_keys.length;
 			for(i=0; i<datalayer_length; i++){
@@ -33,6 +57,12 @@
 		}
 
 		function save_queries(datalayer){
+		/*
+			Task 3
+			
+			This function saves the contents of the object variable
+			'datalayer' to the localStorage.
+		*/
 			var datalayer_keys = Object.keys(datalayer);
 			var datalayer_length = datalayer_keys.length;
 			for(i=0; i<datalayer_length; i++){
@@ -41,12 +71,25 @@
 		}
 
 		function get_storage(){
+		/*
+			Task 3
+			
+			This function retrieves the contents in the localStorage.
+			The assumption here is that only the key names used in Task 1
+			will be retrieved, if in case the localStorage contains
+			values that were not from the query string in Task 1.
+		*/
 			var storage_key = Object.keys(localStorage);
 			var datalayer_length = storage_key.length;
+			var key_query = ['pia.ca', 'pie.de', 'in.gn', 'pin.fn', 'pip.de',
+							'oi.na', 'ps.na', 'pl.ci', 'pl.re', 'pl.co'];
 			var data_val = {};
-			for(i=0; i<datalayer_length; i++){
-				data_val[storage_key[i]] = localStorage[storage_key[i]];
-			}			
+			
+			for(var x in key_query){
+				if(storage_key.indexOf(key_query[x]) > -1){
+					data_val[key_query[x]] = localStorage[key_query[x]];
+				}
+			}
 			return data_val;
 		}
 		
