@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<script src="get_queries.js" type="text/javascript"></script>
+	<script src="image_tag.js" type="text/javascript"></script>
+	<script src="save_queries.js" type="text/javascript"></script>
+	<script src="get_storage.js" type="text/javascript"></script>
+</head>
+<body>
+	<meta charset="utf-8">
+	<script type="text/javascript">
+	
+	
+		document.write("<br/> Task 1: <br/>");
+		var sample_url = "http://www.datalicious.com/?pia.ca=72208039&pie.de=cbartens@datalicious.com&pin.gn=Christian&pin.fn=Bartens&pip.de=&oi.na=&ps.na=&pl.ci=&pl.re=&pl.co=&utm_source=purl&utm_medium=purl&utm_campaign=purl";
+		document.write("Input URL: " + sample_url +"<br/>");
+		
+		var datalayer = get_queries(sample_url);
+		var datalayer_keys = Object.keys(datalayer);
+		document.write("<br/>Query items: <br/>");
+		for(i=0; i<datalayer_keys.length; i++){
+			document.write(datalayer_keys[i] + "=" + datalayer[datalayer_keys[i]] + '<br/>');
+		}		
+		
+		document.write("<br/> Task 2: <br/>");
+		var img_name = "https://example.com/datacollector?";
+		document.write("<br/> Image using (https://example.com/datacollector?) + query values: <br/>");
+		image_tag(get_queries(sample_url), img_name)
+		
+		document.write("<br/> Task 3: <br/>");
+		save_queries(datalayer);
+		var datalayer2 = get_storage();
+		document.write("<br/> Query retrieved from localStorage: <br/>");
+		var datalayer2_keys = Object.keys(datalayer2);
+		for(i=0; i<datalayer2_keys.length; i++){
+			document.write(datalayer2_keys[i] + "=" + datalayer2[datalayer2_keys[i]] + '<br/>');
+		}
+	</script>
+</body>
+</html>
