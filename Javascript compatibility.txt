@@ -1,0 +1,14 @@
+Works on Internet Explorer, but not on Firefox:
+document.all
+event.srcElement
+window.event
+innerText
+
+
+Works on Firefox but not on Internet Explorer:
+document.getElementById
+textContent
+event.target
+event.pageX, event.pageY
+
+from: http://www.htmlgoodies.com/primers/jsp/article.php/3624446/Javascript-Basics-Part-13.htm
